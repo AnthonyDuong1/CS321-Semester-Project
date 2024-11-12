@@ -85,15 +85,21 @@ function addUser(event){
     });
 
     let response = fetch(request)
-        .then(response => response.json())
-        .then(data => console.log(data))
+        .then(response => response.json)
+        .then(data => {
+            if(data.length == 0){
+                console.log("Username/password taken!")
+            }
+            else{
+                console.log(data)
+            }
+        })
         .catch(function(){
 
     });
 }
 
 function createTemplate(){
-    console.log("yup")
     let header = document.getElementById("header").value
     let subject = document.getElementById("subject").value
     let genre = document.getElementById("genre").value
@@ -117,7 +123,7 @@ function createTemplate(){
 }
 
 function getTemplates(){
-    
+
 }
 
 

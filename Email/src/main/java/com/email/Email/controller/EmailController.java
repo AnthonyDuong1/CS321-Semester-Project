@@ -84,7 +84,12 @@ public class EmailController {
         String password = body.get("password");
         User newUser = new User(username, password);
 
+        if(userService.findUserByExample(newUser).size() != 0){
+            return null;
+        }
+
         UserRepository.save(newUser);
+
         
         return newUser;
     }
