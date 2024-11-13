@@ -1,5 +1,6 @@
 package com.email.Email.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,15 @@ public class UserService {
     public List<User> findUserByExample(User user){
         Example<User> example = Example.of(user);
         return UserRepository.findAll(example);
+    }
+
+    public List<User> createUser(User user){
+        List<User> temp = findUserByExample(user);
+        if(temp.size() == 0){
+            UserRepository.save(user);
+            return findUserByExample(user);
+        }
+        temp.removeAll(temp);
+        return temp;
     }
 }

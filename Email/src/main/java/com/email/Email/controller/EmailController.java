@@ -3,6 +3,8 @@ package com.email.Email.controller;
 import com.email.Email.model.User;
 import com.email.Email.repository.UserRepository;
 
+import ch.qos.logback.core.model.Model;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +20,8 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -38,12 +42,33 @@ public class EmailController {
     @RequestMapping("/")
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("html/index.html");
+        modelAndView.setViewName("html/login.html");
         return modelAndView;
     }
 
-    @PostMapping("/login")
-    public List<User> login(@RequestBody @Validated User user){
+    @RequestMapping("/create-template")
+    public ModelAndView createTemplates(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("html/create-template.html");
+        return modelAndView;
+    }
+
+    @RequestMapping("/explore-template")
+    public ModelAndView exploreTemplates(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("html/explore-template.html");
+        return modelAndView;
+    }
+
+    @RequestMapping("/test")
+    public ModelAndView test(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("html/test.html");
+        return modelAndView;
+    }
+
+    @PostMapping("/login-user")
+    public List<User> loginUser(@RequestBody @Validated User user){
         return userService.findUserByExample(user);
     }
 
@@ -78,20 +103,8 @@ public class EmailController {
     }
 
     @PostMapping("/add")
-    public User createUser(@RequestBody Map<String, String> body) {
-        
-        String username = body.get("username");
-        String password = body.get("password");
-        User newUser = new User(username, password);
-
-        if(userService.findUserByExample(newUser).size() != 0){
-            return null;
-        }
-
-        UserRepository.save(newUser);
-
-        
-        return newUser;
+    public List<User> createUser(@RequestBody @Validated User user) {
+        return userService.createUser(user);
     }
     
 }

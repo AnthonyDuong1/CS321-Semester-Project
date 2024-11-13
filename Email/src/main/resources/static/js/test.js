@@ -10,13 +10,14 @@ button3.addEventListener("click", addUser)
 button4.addEventListener("click", createTemplate)
 login.addEventListener("click", loginUser)
 
+document.getElementById("currID").innerText = "ID: " + localStorage.getItem("ID")
 
 function loginUser(event){
 
     let user = document.getElementById("user").value
     let pass = document.getElementById("pass").value
 
-    const request = new Request("http://localhost:8080/login", {
+    const request = new Request("http://localhost:8080/login-user", {
         headers:{
             "Content-Type": "application/json"
         },
@@ -39,6 +40,25 @@ function loginUser(event){
 
         });
 
+}
+
+userList();
+function userList(){
+    let userlist = document.getElementById("userList")
+    const request = new Request("http://localhost:8080/get-all-users", {
+        method: "GET",
+    });
+
+    let response = fetch(request)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach((user) => {
+                userlist.innerHTML += "<li>" + user.username + " " + user.password + "</li>"
+            })
+        })
+        .catch(function(){
+
+        });
 }
 
 function getUsers(event){
@@ -87,12 +107,7 @@ function addUser(event){
     let response = fetch(request)
         .then(response => response.json)
         .then(data => {
-            if(data.length == 0){
-                console.log("Username/password taken!")
-            }
-            else{
-                console.log(data)
-            }
+            
         })
         .catch(function(){
 
@@ -126,5 +141,12 @@ function getTemplates(){
 
 }
 
+var logoutB = document.getElementById("logout")
+
+logoutB.addEventListener("click", logout)
+
+function logout(){
+    localStorage.removeItem("ID")
+}
 
 

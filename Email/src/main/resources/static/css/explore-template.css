@@ -1,0 +1,40 @@
+html {
+    background-color: black;
+}
+.email-container {
+    width: 100rem;
+    height: 50rem;
+    background-color: rgb(179, 179, 179);
+    border-radius: 15px;
+    position: relative;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+  } 
+  .profile-page{
+    background-color: white;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+        
+  }
+  .genres {
+    width: 250px;
+    height: 250px;
+    background-color: white;
+    border-radius: 15px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: left;
+    margin: auto;
+  } 
+
+  .hidden {
+        display: none;
+  }
+  
