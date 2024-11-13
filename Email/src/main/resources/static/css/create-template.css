@@ -2,18 +2,14 @@ html {
     background-color: black;
 }
 .email-container {
-    width: 100rem;
+    display: flexbox;
+    width: 75rem;
     height: 50rem;
     background-color: rgb(179, 179, 179);
     border-radius: 15px;
     border-width: 5px;
     border-color: gray;
     position: relative;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
     margin: auto;
   } 
   .profile-page{
@@ -50,10 +46,18 @@ html {
     width: 100%;
     overflow: hidden;
     resize: both;
-    min-height: 40px;
+    min-height: 80px;
     line-height: 20px;
+    padding-top: 5px;
     padding-left: 5px;
     padding-right: 5px;
+    padding-bottom: 5px;
+  }
+
+  .header-text{
+    width: 100%;
+    display: inline-block;
+    margin-top: 5px;
   }
 
   #header[contenteditable]:empty::before {
@@ -61,7 +65,7 @@ html {
     color: gray;
   }
 
-  #callToAction[contenteditable]:empty::before {
+  #action[contenteditable]:empty::before {
     content: "Enter call to action";
     color: gray;
   }
@@ -76,33 +80,13 @@ html {
     color: gray;
   }
 
-  .button1{
-    background-color: red;
-    border-radius: 10px;
-    position: relative;
-    left: 36%;
-    right:0%;
-    bottom:0%;
-    top: 50%;
+  .buttons{
+    margin-left: 36rem;
   }
-  .button2{
-    background-color: red;
-    border-radius: 10px;
-    position: relative;
-    left: 36%;
-    right: 0%;
-    bottom: 0%;
-    top: 50%;
-  }
-  .button3{
-    background-color: red;
-    border-radius: 10px;
-    position: relative;
-    left: 36%;
-    right: 0%;
-    bottom:0%;
-    top:50%;
 
+  .button1,.button2,.button3{
+    background-color: red;
+    border-radius: 10px;
   }
   .hidden {
         display: none;

@@ -13,20 +13,20 @@ public class Template {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tid;
     private String header;
-    private String subject;
-    private String genre;
-    private String description;
+    private String action;
+    private String closing;
+    private String signature;
 
     @JoinColumn(name = "uid")
     private int uid;
 
     public Template() {}
 
-    public Template(String header, String subject, String genre, String description, int uid){
+    public Template(String header, String action, String closing, String signature, int uid){
         this.header = header;
-        this.subject = subject;
-        this.genre = genre;
-        this.description = description;
+        this.action = action;
+        this.closing = closing;
+        this.signature = signature;
         this.uid = uid;
     }
 
@@ -42,31 +42,31 @@ public class Template {
         return header;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getAction() {
+        return action;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getClosing() {
+        return closing;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSignature() {
+        return signature;
     }
 
     public void setHeader(String header) {
         this.header = header;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setAction(String action) {
+        this.action = action;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setClosing(String closing) {
+        this.closing = closing;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 }

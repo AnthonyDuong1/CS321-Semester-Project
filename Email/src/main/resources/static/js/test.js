@@ -3,12 +3,14 @@ var button2 = document.querySelector(".del-btn")
 var button3 = document.querySelector(".add-btn")
 var button4 = document.querySelector(".addTemp")
 var login = document.getElementById("login")
+var tBtn = document.getElementById("delTBtn")
 
 button1.addEventListener("click", getUsers)
 button2.addEventListener("click", delUser)
 button3.addEventListener("click", addUser)
 button4.addEventListener("click", createTemplate)
 login.addEventListener("click", loginUser)
+tBtn.addEventListener("click", deleteTemplate)
 
 document.getElementById("currID").innerText = "ID: " + localStorage.getItem("ID")
 
@@ -116,9 +118,9 @@ function addUser(event){
 
 function createTemplate(){
     let header = document.getElementById("header").value
-    let subject = document.getElementById("subject").value
-    let genre = document.getElementById("genre").value
-    let description = document.getElementById("description").value
+    let action = document.getElementById("action").value
+    let closing = document.getElementById("closing").value
+    let signature = document.getElementById("signature").value
     let uid = document.getElementById("currID").innerText.substring(4)
 
     const request = new Request("http://localhost:8080/create", {
@@ -126,7 +128,7 @@ function createTemplate(){
             "Content-Type": "application/json"
         },
         method: "POST",
-        body: JSON.stringify({header: header, subject: subject, genre: genre, description: description, uid: uid})
+        body: JSON.stringify({header: header, action: action, closing: closing, signature: signature, uid: uid})
     });
 
     let response = fetch(request)
@@ -137,10 +139,6 @@ function createTemplate(){
     });
 }
 
-function getTemplates(){
-
-}
-
 var logoutB = document.getElementById("logout")
 
 logoutB.addEventListener("click", logout)
@@ -149,4 +147,17 @@ function logout(){
     localStorage.removeItem("ID")
 }
 
+function deleteTemplate(){
+    let templateID = document.getElementById("delTID").value
+    const request = new Request("http://localhost:8080/delete/" + templateID, {
+        method: "DELETE",
+    });
+
+    let response = fetch(request)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(function(){
+
+        });
+}
 
