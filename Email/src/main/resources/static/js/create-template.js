@@ -10,18 +10,24 @@ function exploreTemplate(){
 }
 
 function publishTemplate(){
-    let header = document.getElementById("header").textContent
-    let action = document.getElementById("action").textContent
+    let title = document.getElementById("title").textContent
+    let subject = document.getElementById("subject").textContent
+    let body = document.getElementById("body").textContent
     let closing = document.getElementById("closing").textContent
     let signature = document.getElementById("signature").textContent
     let uid = localStorage.getItem("ID")
+
+    if(uid == null){
+        console.log("You must login first before creating a template!")
+        return;
+    }
 
     const request = new Request("http://localhost:8080/create", {
         headers:{
             "Content-Type": "application/json"
         },
         method: "POST",
-        body: JSON.stringify({header: header, action: action, closing: closing, signature: signature, uid: uid})
+        body: JSON.stringify({title: title, subject: subject, body: body, closing: closing, signature: signature, uid: uid})
     });
 
     let response = fetch(request)
