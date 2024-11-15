@@ -56,3 +56,12 @@ html {
     font-size: 2rem;;
     font-style: italic;
 }
+
+.buttons{
+    float: right;
+}
+
+.delete-button{
+    background-color: red;
+    border-radius: 10px;
+}

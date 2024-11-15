@@ -24,17 +24,10 @@ public class TemplateController {
     @Autowired
     TemplateRepository TemplateRepository;
 
-    @RequestMapping("/create-template")
+    @RequestMapping("/template")
     public ModelAndView createTemplates(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("html/create-template.html");
-        return modelAndView;
-    }
-
-    @RequestMapping("/explore-template")
-    public ModelAndView exploreTemplates(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("html/explore-template.html");
+        modelAndView.setViewName("html/template.html");
         return modelAndView;
     }
 

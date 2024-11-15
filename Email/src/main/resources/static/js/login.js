@@ -24,8 +24,8 @@ function submitUser(event){
             }
             else{
                 console.log("yes")
-                window.location.href = "http://localhost:8080/create-template"
-                window.location.replace("http://localhost:8080/create-template")
+                window.location.href = "http://localhost:8080/template"
+                window.location.replace("http://localhost:8080/template")
                 localStorage.setItem("ID", data[0].id)
             }
         })
@@ -53,8 +53,8 @@ function addUser(event){
                 console.log("Username/password already exists!")
             }
             else{
-                window.location.href = "http://localhost:8080/create-template"
-                window.location.replace("http://localhost:8080/create-template")
+                window.location.href = "http://localhost:8080/template"
+                window.location.replace("http://localhost:8080/template")
                 localStorage.setItem("ID", data[0].id)
             }
         })

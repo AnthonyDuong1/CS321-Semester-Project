@@ -1,6 +1,8 @@
 var createBtn = document.getElementById("createTemplate")
+var deleteBtn = document.getElementById("deleteButton")
 
 createBtn.addEventListener("click", createTemplate)
+deleteBtn.addEventListener("click", deleteTemplate)
 
 getTemplates()
 function getTemplates(){
@@ -48,10 +50,29 @@ function displayTemplate(templateID){
         .then(response => response.json())
         .then(data => {
             titleBar.innerText = "Title: " + data.title
+            titleBar.value = templateID
             dSubject.innerText = data.subject
             dBody.innerText = data.body
             dClosing.innerText = data.closing
             dSignature.innerText = data.signature
+        })
+        .catch(function(){
+
+        });
+}
+
+function deleteTemplate(){
+    let currentTID = document.getElementById("titleBar").value
+    
+    const request = new Request("http://localhost:8080/delete/" + currentTID, {
+        method: "DELETE",
+    });
+
+    let response = fetch(request)
+        .then(response => response.json())
+        .then(data => {
+            window.location.reload();
+            console.log(data)
         })
         .catch(function(){
 
