@@ -17,18 +17,20 @@ public class Template {
     private String action;
     private String closing;
     private String signature;
+    public boolean publicly;
 
     @JoinColumn(name = "uid")
     private int uid;
 
     public Template() {}
 
-    public Template(String subject, String introduction, String action, String closing, String signature, int uid){
+    public Template(String subject, String introduction, String action, String closing, String signature, boolean publicly, int uid){
         this.subject = subject;
         this.introduction = introduction;
         this.action = action;
         this.closing = closing;
         this.signature = signature;
+        this.publicly = publicly;
         this.uid = uid;
     }
 
@@ -60,6 +62,10 @@ public class Template {
         return signature;
     }
 
+    public boolean getPublicly(){
+        return publicly;
+    }
+
     public void setSubject(String subject) {
         this.subject = subject;
     }
@@ -78,5 +84,9 @@ public class Template {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public void setPublicly(boolean publicly) {
+        this.publicly = publicly;
     }
 }

@@ -23,6 +23,7 @@ function publishTemplate(){
     let action = document.getElementById("call-to-action").value
     let closing = document.getElementById("closing").value
     let signature = document.getElementById("signature").value
+    let publicly = document.getElementById("make-public").checked
     let uid = localStorage.getItem("ID")
 
     if(uid == null){
@@ -35,12 +36,24 @@ function publishTemplate(){
             "Content-Type": "application/json"
         },
         method: "POST",
-        body: JSON.stringify({subject: subject, introduction: introduction, action: action, closing: closing, signature: signature, uid: uid})
+        body: JSON.stringify({subject: subject, introduction: introduction, action: action, closing: closing, signature: signature, publicly: publicly, uid: uid})
     });
 
     let response = fetch(request)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            document.getElementById("templateListItems").innerHTML = ''
+            getTemplates()
+
+            document.querySelectorAll('.content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById("tab2").classList.remove('hidden');
+            document.getElementById("tab2").classList.add('active');
+        })
         .catch(function(){
 
     });
@@ -66,7 +79,8 @@ function getTemplates(){
         .then(response => response.json())
         .then(data => {
             data.forEach((template) => {
-                templateLists.innerHTML += "<li onclick='templateClick(event) '" + "value='" + template.tid + "'" + ">" + template.subject + "</li>"
+                if(template.publicly || (!template.publicly && localStorage.getItem("ID") == template.uid))
+                    templateLists.innerHTML += "<li onclick='templateClick(event) '" + "value='" + template.tid + "'" + ">" + template.subject + "</li>"
             })
         })
         .catch(function(){
@@ -118,7 +132,12 @@ function deleteTemplate(){
     let response = fetch(request)
         .then(response => response.json())
         .then(data => {
-            window.location.reload();
+            document.getElementById("templateListItems").innerHTML = ''
+            getTemplates()
+            document.getElementById("titleBar").innerText = "Title: "
+            document.querySelectorAll('.display-res').forEach(field => {
+                field.innerText = ''
+            })
             console.log(data)
         })
         .catch(function(){
