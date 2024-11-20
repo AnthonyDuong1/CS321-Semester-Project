@@ -20,7 +20,7 @@ function submitUser(event){
         .then(response => response.json())
         .then(data => {
             if(data.length == 0){
-                console.log("Username/password doesn't exist!")
+                document.getElementById("errorMsgTxt").innerText = "Username/password doesn't exist!"
             }
             else{
                 console.log("yes")
@@ -50,7 +50,7 @@ function addUser(event){
         .then(response => response.json())
         .then(data => {
             if(data.length == 0){
-                console.log("Username/password already exists!")
+                document.getElementById("errorMsgTxt").innerText = "Username/password already exists!"
             }
             else{
                 window.location.href = "http://localhost:8080/template"
