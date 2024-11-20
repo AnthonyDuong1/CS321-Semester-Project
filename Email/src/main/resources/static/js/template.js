@@ -13,6 +13,12 @@ function openTab(event, tabId) {
     });
     document.getElementById(tabId).classList.remove('hidden');
     event.currentTarget.classList.add('active');
+
+    if(tabId == "tab3"){
+        document.getElementById("templateListItems").innerHTML = ''
+        getTemplates()
+    }
+
 }
 
 //Create template functions
@@ -51,8 +57,10 @@ function publishTemplate(){
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            document.getElementById("tab2").classList.remove('hidden');
-            document.getElementById("tab2").classList.add('active');
+            document.getElementById("tab3").classList.remove('hidden');
+            document.getElementById("tab3-tab").classList.add('active');
+
+            clearFields()
         })
         .catch(function(){
 
@@ -139,6 +147,34 @@ function deleteTemplate(){
                 field.innerText = ''
             })
             console.log(data)
+        })
+        .catch(function(){
+
+        });
+}
+
+function searchTemplate(){
+    let subject = document.getElementById("searchBar").value
+    let templateLists = document.getElementById("templateListItems")
+    document.getElementById("templateListItems").innerHTML = ''
+
+    if(subject == ''){
+
+        getTemplates()
+        return
+    }
+
+    const request = new Request("http://localhost:8080/search-templates/" + subject, {
+        method: "GET",
+    });
+
+    let response = fetch(request)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach((template) => {
+                if(template.publicly || (!template.publicly && localStorage.getItem("ID") == template.uid))
+                    templateLists.innerHTML += "<li onclick='templateClick(event) '" + "value='" + template.tid + "'" + ">" + template.subject + "</li>"
+            })
         })
         .catch(function(){
 

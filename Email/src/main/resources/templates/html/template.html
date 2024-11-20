@@ -10,11 +10,11 @@
 <body>
     <div class="tab-container">
         <div class="tabs">
-            <div class="tab active" onclick="openTab(event, 'tab1')">Welcome</div>
-            <div class="tab" onclick="openTab(event, 'tab2')">Create Template</div>
-            <div class="tab" onclick="openTab(event, 'tab3')">Tab 3</div>
-            <div class="tab" onclick="openTab(event, 'tab4')">Tab 4</div>
-            <div class="tab" onclick="openTab(event, 'tab5')">Email Writing Guide</div>
+            <div class="tab active" id="tab1-tab" onclick="openTab(event, 'tab1')">Welcome</div>
+            <div class="tab" id="tab2-tab" onclick="openTab(event, 'tab2')">Create Template</div>
+            <div class="tab" id="tab3-tab" onclick="openTab(event, 'tab3')">Explore Template</div>
+            <div class="tab" id="tab4-tab" onclick="openTab(event, 'tab4')">Tab 4</div>
+            <div class="tab" id="tab5-tab" onclick="openTab(event, 'tab5')">Email Writing Guide</div>
             <button class= logout-btn id="logoutBtn" onclick="logout()">logout</button>
         </div>
         <div id="tab1" class="content">
@@ -69,8 +69,14 @@
             </div>
         </div>
         <div id="tab3" class="content hidden">
-
             <label class="title-bar" id="titleBar">Title:</label>
+            
+            <div class="template-list">
+                <input type="text" class="search-bar" id="searchBar" onkeyup="searchTemplate()">
+                <ul class="template-list-items" id="templateListItems">
+                    
+                </ul>
+            </div>
             <div class=" display-template-container">
                 <div class="display-template" id="displayTemplate">
                     <label class="display-part">Subject:</label>
@@ -85,15 +91,9 @@
                     <label class="display-res" id="displaySignature"></label>
                 </div>
             </div>
-            <div class="template-list">
-                <ul class="template-list-items" id="templateListItems">
-                    
-                </ul>
-            </div>
             <div class = buttons>
                 <button class="delete-button" id="deleteButton" onclick="deleteTemplate()">Delete</button>
             </div>
-
 
         </div>
         <div id="tab4" class="content hidden">Content for Tab 4</div>

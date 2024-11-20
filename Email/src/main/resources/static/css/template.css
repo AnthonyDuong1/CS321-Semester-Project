@@ -14,9 +14,9 @@ body {
     border: 2px solid #0078d4;
     border-radius: 8px;
     width: 80%;
-    max-width: 800px;
+    max-width: 55rem;
     height: 80%;
-    max-height: 700px;
+    max-height: 50rem;
     display: flex;
     flex-direction: column;
     transition: width 0.3s, height 0.3s;
@@ -188,23 +188,10 @@ body {
     border-radius: 10px;
 }
 
-.display-template-container{
-    float: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: gray;
-    margin-top: 5px;
-    width: 36rem;
-    height: 32rem;
+.search-bar{
+    margin-top: 0.5rem;
 }
 
-.display-template{
-    background-color: white;
-    border-radius: 10px;
-    width: 34rem;
-    height: 30rem;
-}
 .template-list{
     float: left;
     background-color: #90909c;
@@ -218,6 +205,23 @@ body {
     overflow: auto;
     font-size: 1.25rem;
 }
+
+.display-template-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    margin-left: auto;
+    margin-top: 5px;
+    width: 36rem;
+    height: 32rem;
+}
+.display-template{
+    background-color: white;
+    border-radius: 10px;
+    width: 34rem;
+    height: 30rem;
+}
 .display-part{
     margin-left: 0.25rem;
     display: block;
@@ -228,6 +232,7 @@ body {
 .display-res{
     margin-left: 0.25rem;
 }
+
 .buttons{
     float: right;
 }

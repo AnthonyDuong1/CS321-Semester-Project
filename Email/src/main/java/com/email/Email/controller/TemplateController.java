@@ -24,6 +24,12 @@ public class TemplateController {
     @Autowired
     TemplateRepository TemplateRepository;
 
+    private final TemplateService templateService;
+
+    public TemplateController(TemplateService templateService){
+        this.templateService = templateService;
+    }
+
     @RequestMapping("/template")
     public ModelAndView createTemplates(){
         ModelAndView modelAndView = new ModelAndView();
@@ -55,4 +61,10 @@ public class TemplateController {
     public Template getTemplate(@PathVariable("tid") Integer tid){
         return TemplateRepository.findById(tid).get();
     }
+
+    @GetMapping("/search-templates/{subject}")
+    public List<Template> searchTemplates(@PathVariable("subject") String subject){
+        return templateService.searchTemplateByExample(subject);
+    }
+
 }
