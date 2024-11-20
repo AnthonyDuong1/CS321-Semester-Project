@@ -192,7 +192,7 @@ body {
     margin-top: 0.5rem;
 }
 
-.template-list{
+.template-list-container{
     float: left;
     background-color: #90909c;
     border-radius: 10px;
@@ -200,11 +200,19 @@ body {
     width: 11rem;
     height: 32rem;
 }
+
+.template-list{
+    overflow: auto;
+    width: 11rem;
+    height: 30rem;
+}
+
 .template-list-items{
     list-style-type: none;
-    overflow: auto;
     font-size: 1.25rem;
 }
+
+
 
 .display-template-container{
     display: flex;
