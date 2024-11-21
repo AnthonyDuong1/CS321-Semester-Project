@@ -1,8 +1,32 @@
 var submit = document.getElementById("btn")
 var register = document.getElementById("regBtn")
 
+
 submit.addEventListener("click", submitUser)
 register.addEventListener("click", addUser)
+
+document.getElementById("exampleInputPassword").addEventListener('keydown', (event)=>{
+    if (event.key === "Enter") {
+        event.preventDefault()
+        submitUser()
+    }
+})
+
+document.getElementById("exampleInputUsername").addEventListener('keydown', (event)=>{
+    if (event.key === "Enter") {
+        event.preventDefault()
+        submitUser()
+    }
+})
+
+
+function checkLogin(){
+    if(localStorage.getItem("ID") != null){
+        window.location.href = "http://localhost:8080/template"
+        window.location.replace("http://localhost:8080/template")
+    }
+}
+checkLogin()
 
 function submitUser(event){
     let username = document.getElementById("exampleInputUsername").value

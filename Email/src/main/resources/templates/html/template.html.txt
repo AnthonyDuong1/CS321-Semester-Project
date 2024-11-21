@@ -4,26 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Email Template Builder</title>
-    <script defer src="js/template.js"></script>
     <link rel="stylesheet" href="css/template.css" />
   </head>
   <body>
     <!-- Header -->
     <header>
-      <div class="logo">Template Hub</div>
+      <div class="logo">Logo Here</div>
       <button class="login-button" id="loginButton" onclick="login()">Log In/Sign Up</button>
-      <button class="logout-button" id="logoutButton" onclick="logout()">Logout</button>
+      <button class="logout-button" id="logoutButton" onclick="logout()"></button>
     </header>
 
     <!-- Tabs Navigation -->
     <div class="tabs-container">
       <div class="tabs">
         <div class="tab active" data-content="welcome">Welcome</div>
-        <div class="tab" id="tab1" data-content="features">Features</div>
-        <div class="tab" id="tab2" data-content="tips">Tips</div>
-        <div class="tab" id="tab3" data-content="create">Create</div>
-        <div class="tab" id="tab4" data-content="explore">Explore</div>
-        <div class="tab" id="tab5" data-content="use">Use</div>
+        <div class="tab" data-content="features">Features</div>
+        <div class="tab" data-content="tips">Tips</div>
+        <div class="tab" data-content="create">Create</div>
+        <div class="tab" data-content="explore">Explore</div>
+        <div class="tab" data-content="use">Use</div>
       </div>
     </div>
 
@@ -324,23 +323,25 @@
             <!-- Subject -->
             <div class="form-group">
               <label for="subject">Subject:</label>
-              <textarea
+              <input
+                type="text"
                 id="subject"
                 name="subject"
                 placeholder="Enter the subject"
                 required
-              ></textarea>
+              />
             </div>
 
             <!-- Greeting -->
             <div class="form-group">
               <label for="greeting">Greeting:</label>
-              <textarea
+              <input
+                type="text"
                 id="greeting"
                 name="greeting"
                 placeholder="Enter the greeting (e.g., Dear [Name])"
                 required
-              ></textarea>
+              />
             </div>
 
             <!-- Body -->
@@ -376,10 +377,6 @@
                 placeholder="e.g., Sincerely, Best regards, and then Your Name, Title, Contact Info"
               ></textarea>
             </div>
-            <div class="left-align">
-              <input type="checkbox" id="make-public">
-              <label id="public-label">Make this template available to others</label>
-          </div>
           </form>
 
           <!-- Preview Section -->
@@ -399,75 +396,66 @@
           </div>
         </section>
       </div>
+      
+ <!-- Explore Tab Content -->
+<div id="explore" class="content">
+  <div class="explore-header">
+    <h1>Explore Templates</h1>
+    <p>Discover templates created by other users or provided by the site. Save and organize them into folders.</p>
+  </div>
 
-      <!-- Explore Tab Content -->
-      <div id="explore" class="content">
-        <div class="explore-header">
-          <h1>Explore Templates</h1>
-          <p>
-            Discover templates created by other users or provided by the site.
-            Save and organize them into folders.
-          </p>
-        </div>
+  <div class="explore-container">
+    <!-- Sidebar for Folders -->
+    <aside id="folder-sidebar">
+      <h2>Folders</h2>
+      <button id="create-folder">+ Create Folder</button>
+      <button id="delete-folder">- Delete Folder</button>
+      <ul id="folder-list">
+        <li class="folder-item">My Templates</li>
+        <li class="folder-item">Saved Templates</li>
+      </ul>
+    </aside>
 
-        <div class="explore-container">
-          <!-- Sidebar for Folders -->
-          <aside id="folder-sidebar">
-            <h2>Folders</h2>
-            <button id="create-folder"> Create Folder</button>
-            <button id="delete-folder"> Delete Folder</button>
-            <ul id="folder-list">
-              <li class="folder-item">My Templates</li>
-              <li class="folder-item">Saved Templates</li>
-            </ul>
-          </aside>
+    <!-- Template List -->
+    <main id="template-list-container">
+      <h2>Templates</h2>
+      <ul id="template-list">
+        <!-- Dynamically Populated -->
+        <li class="no-templates-message hidden">No templates found.</li>
+      </ul>
+    </main>
+  </div>
 
-          <!-- Template List -->
-          <main id="template-list-container">
-            <h2>Templates</h2>
-    <input
-      type="text"
-      id="template-search-bar"
-      placeholder="Search templates..."
-      aria-label="Search Templates">
-            <ul id="template-list">
-              <!-- Dynamically Populated -->
-              <li class="no-templates-message hidden">No templates found.</li>
-            </ul>
-          </main>
-        </div>
+  <!-- Create Folder Popup -->
+  <div id="create-folder-popup" class="popup hidden">
+    <h3>Create a New Folder</h3>
+    <input type="text" id="folder-name-input" placeholder="Enter folder name">
+    <div class="popup-actions">
+      <button id="confirm-folder">Confirm</button>
+      <button id="cancel-folder">Cancel</button>
+    </div>
+  </div>
 
-        <!-- Create Folder Popup -->
-        <div id="create-folder-popup" class="popup hidden">
-          <h3>Create a New Folder</h3>
-          <input
-            type="text"
-            id="folder-name-input"
-            placeholder="Enter folder name"
-          />
-          <div class="popup-actions">
-            <button id="confirm-folder">Confirm</button>
-            <button id="cancel-folder">Cancel</button>
-          </div>
-        </div>
-
-        <!-- Template Preview Modal -->
-        <div id="preview-modal" class="modal hidden">
-          <div class="modal-content">
-            <h2>Template Preview</h2>
-            <div id="template-preview-content" class="email-preview">
-              <!-- Styled email content dynamically inserted -->
-            </div>
-            <div class="modal-actions">
-              <button id="back-button">Back</button>
-            </div>
-          </div>
-        </div>
+  <!-- Template Preview Modal -->
+  <div id="preview-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Template Preview</h2>
+      <div id="template-preview-content" class="email-preview">
+        <!-- Styled email content dynamically inserted -->
       </div>
+      <div class="modal-actions">
+        <button id="back-button">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
       <!-- Placeholder Content for Other Tabs -->
       <div id="use" class="content">Use Templates Content</div>
     </div>
+    <!-- JavaScript -->
 
+    <script src="js/template.js"></script>
   </body>
 </html>

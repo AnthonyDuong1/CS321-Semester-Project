@@ -49,6 +49,13 @@ public class EmailController {
         return modelAndView;
     }
 
+    @RequestMapping("/explore")
+    public ModelAndView explore(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("html/explore.html");
+        return modelAndView;
+    }
+
     @PostMapping("/login-user")
     public List<User> loginUser(@RequestBody @Validated User user){
         return userService.findUserByExample(user);
