@@ -393,7 +393,6 @@
           <!-- Action Buttons -->
           <div id="actions" style="text-align: center; margin-top: 20px">
             <button type="reset" form="template-form">Clear All</button>
-            <button type="button" id="save-button">Save for Later</button>
             <button type="button" id="preview-button">Preview</button>
             <button type="button" id="publish-button">Publish</button>
           </div>
@@ -417,8 +416,8 @@
             <button id="create-folder"> Create Folder</button>
             <button id="delete-folder"> Delete Folder</button>
             <ul id="folder-list">
-              <li class="folder-item">My Templates</li>
-              <li class="folder-item">Saved Templates</li>
+              <li class="folder-item" id="myTemplates">My Templates</li>
+              <li class="folder-item" id="savedTemplates">Saved Templates</li>
             </ul>
           </aside>
 
@@ -465,9 +464,12 @@
         </div>
       </div>
 
-      <!-- Placeholder Content for Other Tabs -->
-      <div id="use" class="content">Use Templates Content</div>
-    </div>
-
+      <!-- Use Tabs -->
+      <div id="use" class="content">
+       <p id="useArea">Click "use" button in Explore tab</p>
+       <div id="toolbar" style="text-align: center; margin-bottom: 20px">
+        <button type="button" id="copyButton" class="copy-button">Copy</button>
+      </div>
+      </div>  
   </body>
 </html>

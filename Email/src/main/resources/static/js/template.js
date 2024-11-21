@@ -56,11 +56,6 @@ document.getElementById('input-button').addEventListener('mousedown', (event) =>
   }
 });
 
-// Save for Later
-document.getElementById('save-button').addEventListener('click', () => {
-  alert('Template saved for later!');
-});
-
 // Publish Template
 document.getElementById('publish-button').addEventListener('click', () => {
   alert('Template published!');
@@ -87,8 +82,7 @@ ${signature}
   `;
 
 
-
-  document.getElementById('email-preview').textContent = preview;
+  document.getElementById('email-preview').textContent = preview
 });
 
 // explore templates
@@ -99,14 +93,110 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Data structure to hold folder contents
   const folders = {
-    'My Templates': [],
-    'Saved Templates': []
   };
 
   const templates = [
-    { tid: -1, subject: 'Meeting Invitation', action: 'Dear [Name], I hope you are doing well. I am following up on my application for the Software Engineer position submitted on October 25th. I wanted to kindly inquire if there are any updates on the hiring process. I remain very enthusiastic about the opportunity to contribute to your team and would be happy to provide any  additional information if needed. Thank you for your time, and I look forward to hearing from you! ' },
-    { tid: -2, subject: 'Thank You Note', action: 'Dear [Name],\nThank you for...' }
   ];
+
+  function addDefaultFolders(){
+    const request = new Request("http://localhost:8080/get-all-folders", {
+      method: "GET",
+    });
+
+    let response = fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let counter = 0;
+        data.forEach((folder) =>{
+          if(folder.uid == localStorage.getItem("ID")){
+            counter += 1
+          }
+        })
+
+        if(counter < 2){
+          const request1 = new Request("http://localhost:8080/create-folder", {
+            headers: {
+              "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({ name: "My Templates", tid: "", uid: localStorage.getItem('ID') })
+          });
+
+          fetch(request1)
+
+          const request2 = new Request("http://localhost:8080/create-folder", {
+            headers: {
+              "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({ name: "Saved Templates", tid: "", uid: localStorage.getItem('ID') })
+          });
+
+          fetch(request2)
+          .then()
+          .then(data =>{
+            populateFolders()
+            updateFolderAccordion()
+            updateMyTemplates()
+          })
+          
+        }
+        
+      })
+  }
+  addDefaultFolders()
+
+  function updateMyTemplates(){
+    const request1 = new Request("http://localhost:8080/get-all-templates", {
+      method: "GET",
+    });
+
+    let response1 = fetch(request1)
+      .then(response => response.json())
+      .then(data => {
+        data.forEach((temp) => {
+          let template = temp
+          if(template.uid == localStorage.getItem("ID") && template.tid != 0){
+            let alreadyIn = false;
+            const request2 = new Request("http://localhost:8080/get-folder/My Templates/" + localStorage.getItem("ID"), {
+              method: "GET",
+            });
+        
+            let response2 = fetch(request2)
+              .then(response => response.json())
+              .then(data => {
+                data.forEach((templato) => {
+                  if(templato.tid == template.tid){
+                    alreadyIn = true;
+                  }
+                })
+
+                if(!alreadyIn){
+                  const request3 = new Request("http://localhost:8080/add-to-folder", {
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    method: "POST",
+                    body: JSON.stringify({ name: "My Templates", tid: template.tid, uid: localStorage.getItem('ID') })
+                  });
+      
+                  let response3 = fetch(request3)
+                    .then(response => response.json)
+                    .then(data => {
+                      populateFolders()
+                      updateFolderAccordion()
+                    })
+                }
+              })
+
+        
+
+          }
+        })
+      })
+
+  }
+  updateMyTemplates()
 
   // Publish Template
   document.getElementById("publish-button").addEventListener("click", () => {
@@ -138,10 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
         tab4.classList.add('active');
         const contentId = tab4.getAttribute('data-content');
         document.getElementById(contentId).classList.add('active');
+        updateMyTemplates()
       })
       .catch(function () {
       });
   })
+
 
   // Populate Templates
   const populateTemplates = () => {
@@ -195,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function searchTemplate() {
     let subject = document.getElementById("template-search-bar").value
-    templateList.innerHTML = ''
 
     if (subject == '') {
       populateTemplates()
@@ -209,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let response = fetch(request)
       .then(response => response.json())
       .then(data => {
+        templateList.innerHTML = ''
         data.forEach((template) => {
           if (template.publicly || (!template.publicly && localStorage.getItem("ID") == template.uid)) {
             let li = document.createElement("li")
@@ -315,8 +407,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         newFolderContents.innerHTML +=
                           `<li class="template-in-folder" data-id="${template.tid}">
                           ${template.subject}
-                          <button class="delete-template-button" data-id="${template.tid}" data-folder="${folderName}">Delete</button>
-                        </li>`
+                          <button class="delete-template-button" id="deleteTemplateButton" data-id="${template.tid}" data-folder="${folderName}">X</button>
+                          </li>
+                        `
                       })
 
                   }
@@ -334,8 +427,9 @@ document.addEventListener('DOMContentLoaded', () => {
             newFolderContents.innerHTML +=
               `<li class="template-in-folder" data-id="${template.tid}">
               ${template.subject}
-              <button class="delete-template-button" data-id="${template.tid}" data-folder="${folderName}">Delete</button>
-            </li>`
+              <button class="delete-template-button" id="deleteTemplateButton" data-id="${template.tid}" data-folder="${folderName}">X</button>
+              </li>
+            `
           })
         }
 
@@ -407,22 +501,30 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('confirm-delete-template').addEventListener('click', () => {
         // Remove the template from the folder
 
-        const request = new Request("http://localhost:8080/delete-folder-template/" + templateId + "/" +  folderName, {
+        const request1 = new Request("http://localhost:8080/delete-folder-template/" + templateId + "/" +  folderName, {
           method: "DELETE",
         });
 
-        let response = fetch(request)
+        let response = fetch(request1)
           .then(response => response.json())
           .then(data => {
-            if(data){
-              console.log(data)
+            if(folderName == "My Templates"){
+              const request2 = new Request("http://localhost:8080/delete/" + templateId, {
+                method: "DELETE",
+              });
+
+              let response = fetch(request2)
+              .then(response => response.json())
+              .then(data => {
+                populateTemplates()
+              })
             }
             else{
               folders[folderName] = folders[folderName].filter(t => t.tid != templateId);
             }
                 // Update the folder accordion
             updateFolderAccordion(folderName);
-
+            populateTemplates()
             deleteTemplatePopup.remove(); // Close the popup
 
           })
@@ -698,7 +800,6 @@ document.addEventListener('DOMContentLoaded', () => {
                           let response = fetch(request)
                             .then(response => response.json)
                             .then(data => {
-                              console.log("703")
                               messageElement.textContent = `Saved!`;
                               messageElement.style.color = 'green';
 
@@ -820,7 +921,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       folderContents.innerHTML += `
                       <li class="template-in-folder" data-id="${folder.tid}">
                       ${data.subject}
-                      <button class="delete-template-button" data-id="${folder.tid}" data-folder="${folderName}">Delete</button>
+                      <button class="delete-template-button" id="deleteTemplateButton" data-id="${folder.tid}" data-folder="${folderName}">X</button>
                       </li>
                     `
                   }
@@ -837,8 +938,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 folderContents.innerHTML += `
                 <li class="template-in-folder" data-id="${template.tid}">
                   ${template.subject}
-                  <button class="delete-template-button" data-id="${template.tid}" data-folder="${folderName}">Delete</button>
-                </li>
+                  <button class="delete-template-button" id="deleteTemplateButton" data-id="${template.tid}" data-folder="${folderName}">X</button>
+                  </li>
                 `
               })
       
@@ -944,3 +1045,68 @@ function checkLogin() {
 }
 checkLogin()
 
+function displayTemplate(templateID){
+  let useArea = document.getElementById("useArea")
+  const request = new Request("http://localhost:8080/get-template/" + templateID, {
+      method: "GET",
+  });
+  useArea.innerText = '';
+  let response = fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        const subject = data.subject || '[No Subject]';
+        const greeting = data.introduction || '[No Greeting]';
+        const body = data.action || '[No Body]';
+        const closing = data.closing || '[No Closing]';
+        const signature = data.signature || '[No Signature]';
+
+
+        let preview = `Subject: ${subject}<br><br>${greeting}<br><br>${body}<br><br>${closing}<br><br>${signature}`;
+
+        useArea.innerHTML = preview.replaceAll("[INPUT]", "<input type='text'>")
+
+      })
+      .catch(function(){
+
+      });
+}
+
+// use
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('use-button')) {
+      document.querySelector('.tab.active').classList.remove('active');
+      document.querySelector('.content.active').classList.remove('active');
+
+      // Add 'active' class to the clicked tab and corresponding content
+      tab5.classList.add('active');
+      const contentId = tab5.getAttribute('data-content');
+      document.getElementById(contentId).classList.add('active');
+      displayTemplate(e.target.dataset.id)
+  }
+})
+
+document.getElementById('copyButton').addEventListener('click', (e) =>{
+    let result = '';
+    
+    // Iterate through all child nodes in the container
+    useArea.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            // Append plain text
+            result += node.textContent;
+        } else if (node.tagName === 'INPUT') {
+            // Append input values
+            result += node.value || '[Unfilled Input]';
+        } else if (node.tagName === 'BR') {
+            // Preserve line breaks
+            result += '\n';
+        }
+    });
+
+    // Copy the reconstructed content to clipboard
+    navigator.clipboard.writeText(result).then(() => {
+        alert('Text copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy text:', err);
+    });
+})

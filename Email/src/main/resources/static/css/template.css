@@ -247,6 +247,36 @@ header .logout-button:hover {
   white-space: pre-wrap; /* Preserve line breaks */
 }
 
+.use-container{
+  width: 20rem;
+  height: 20rem;
+}
+
+#preview1 {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+#preview1 h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #007bff;
+  text-align: center;
+}
+
+#email-preview1 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+  white-space: pre-wrap; /* Preserve line breaks */
+}
+
 /* Input and Textarea Styling */
 #template-form input,
 #template-form textarea {
@@ -341,6 +371,7 @@ header .logout-button:hover {
 #folder-list {
   list-style: none;
   padding: 0;
+  width: 90%
 }
 
 .folder-item {
@@ -363,7 +394,7 @@ header .logout-button:hover {
 
 /* Template List */
 #template-list-container {
-  width: 70%;
+  width: 80%;
   padding: 20px;
   background-color: #fff;
   box-sizing: border-box;
@@ -372,7 +403,7 @@ header .logout-button:hover {
 #template-list {
   overflow: auto;
   list-style: none;
-  height: 85%;
+  height: 80%;
   padding: 0;
 }
 
@@ -526,6 +557,7 @@ header .logout-button:hover {
   cursor: pointer;
   padding: 10px;
   border-radius: 5px;
+  width: 10rem;
 }
 
 .template-in-folder.selected {
@@ -544,7 +576,7 @@ header .logout-button:hover {
 /* Style for the delete template button */
 .delete-template-button {
   position: absolute;
-  right: 10px;
+  right: -25px;
   top: 50%;
   transform: translateY(-50%);
   background-color: #d9534f;
@@ -572,3 +604,16 @@ header .logout-button:hover {
 }
 
 
+.copy-button{
+  background-color: #ffd700;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  margin: 10px 5px;
+  transition: background-color 0.3s ease;
+}
