@@ -1,0 +1,52 @@
+Person 1
+Test Case 1: Create Account, Publish Template Privately, and Use It
+1. Objective: Verify the process of creating an account, creating a private template, and
+using it in an email platform.
+2. Steps (User can reference if having trouble to navigate):
+○ Go to the website and create a new account with valid credentials.
+○ Navigate through the site and explore the available features.
+○ Create a new email template with placeholder text for recipient details.
+○ Save the template as a private template.
+○ Use the template by filling in the placeholder details.
+○ Copy the template to the clipboard using the "Copy to Clipboard" button.
+○ Open any email platform (e.g., Gmail, Outlook) and paste the copied template
+into the body of a new email.
+3. Expected Results:
+○ Account creation succeeds with a confirmation message.
+○ The template is saved as private and not visible to other users.
+○ The template can be used and copied correctly without errors.
+○ Pasted content matches the created template.
+Person 2
+Test Case 2: Publish Template Publicly and Use It
+1. Objective: Verify the process of logging in, creating a public template, and using it in an
+email platform.
+2. Steps (User can reference if having trouble to navigate):
+○ Log in to an existing account using valid credentials.
+○ Navigate through the site and explore available features.
+○ Create a new email template with placeholder text for recipient details.
+○ Publish the template as a public template.
+○ Use the template by filling in the placeholder details.
+○ Copy the template to the clipboard using the "Copy to Clipboard" button.
+○ Open any email platform and paste the copied template into the body of a new
+email.
+3. Expected Results:
+○ User can log in successfully with no errors.
+○ The template is saved as public and is visible to other users.
+○ The template can be used and copied correctly without errors.
+Person 3
+Test Case 3: Explore and Use a Template Created by Another User
+1. Objective: Verify the ability to explore templates created by other users, use them, and
+copy them to an email platform.
+2. Steps (User can reference if having trouble to navigate):
+○ Create a new account with valid credentials (Different User).
+○ Navigate through the site to explore public templates.
+○ Locate a public template created by another user.
+○ Select and use the template by filling in placeholder details.
+○ Copy the template to the clipboard using the "Copy to Clipboard" button.
+○ Open any email platform and paste the copied template into the body of a new
+email.
+3. Expected Results:
+○ The user can successfully create a new account and log in.
+○ The user can browse and find public templates created by other users.
+○ The template can be used and copied correctly without errors.
+○ Pasted content matches the selected template.
